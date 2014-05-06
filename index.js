@@ -63,7 +63,7 @@ if(process.platform == 'win32') {
             callback(returnCode, undefined);
         } else {
             callback(undefined, { 
-                free: statvfs.f_bfree * statvfs.f_bsize,
+                free: statvfs.f_bfree * statvfs.f_frsize,
                 total: statvfs.f_blocks * statvfs.f_frsize
             });
         }
