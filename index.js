@@ -28,8 +28,8 @@ if(process.platform == 'win32') {
     var Struct = require('ref-struct')
       , ArrayType = require('ref-array');
 
-    var fsblkcnt_t = ref.types.ulong
-      , fsfilcnt_t = ref.types.ulong
+    var fsblkcnt_t = (process.platform == 'darwin') ? ref.types.uint : ref.types.ulong
+      , fsfilcnt_t = (process.platform == 'darwin') ? ref.types.uint : ref.types.ulong
       , ulong = ref.types.ulong
       , char = ref.types.char;
 
@@ -63,7 +63,7 @@ if(process.platform == 'win32') {
             callback(returnCode, undefined);
         } else {
             callback(undefined, { 
-                free: statvfs.f_bfree * statvfs.f_bsize,
+                free: statvfs.f_bfree * statvfs.f_frsize,
                 total: statvfs.f_blocks * statvfs.f_frsize
             });
         }
