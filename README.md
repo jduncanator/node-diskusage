@@ -1,7 +1,7 @@
 node-diskusage
 ==============
 
-This module implements platform specific bindings to obtain disk usage information on Windows and *nix platforms. Windows support is backed by [GetDiskFreeSpaceEx](http://msdn.microsoft.com/en-us/library/windows/desktop/aa364937\(v=vs.85\).aspx) and *nix is implemented with [statvfs](http://www.freebsd.org/cgi/man.cgi?query=statvfs).
+This module implements platform specific bindings to obtain disk usage information on Windows and *nix platforms. Windows support is backed by [GetDiskFreeSpaceEx](http://msdn.microsoft.com/en-us/library/windows/desktop/aa364937/) and *nix is implemented with [statvfs](http://www.freebsd.org/cgi/man.cgi?query=statvfs).
 
 Installation
 ------------
