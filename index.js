@@ -8,13 +8,15 @@ if(process.platform == 'win32') {
     })
 
     exports.check = function(drive, callback) {
-        var freeBytesPtr = ref.alloc(ref.types.uint64)
+        var availableBytesPtr = ref.alloc(ref.types.uint64)
+          , freeBytesPtr = ref.alloc(ref.types.uint64)
           , totalBytesPtr = ref.alloc(ref.types.uint64);
-        var returnCode = DiskApi.GetDiskFreeSpaceExA(drive, freeBytesPtr, totalBytesPtr, ref.NULL_POINTER);
+        var returnCode = DiskApi.GetDiskFreeSpaceExA(drive, availableBytesPtr, totalBytesPtr, freeBytesPtr);
         if(!returnCode) {
             callback(returnCode, undefined);
         } else {
             callback(undefined, { 
+                available: availableBytesPtr.deref(),
                 free: freeBytesPtr.deref(),
                 total: totalBytesPtr.deref()
             });
@@ -63,6 +65,7 @@ if(process.platform == 'win32') {
             callback(returnCode, undefined);
         } else {
             callback(undefined, { 
+                available: statvfs.f_bavail * statvfs.f_frsize,
                 free: statvfs.f_bfree * statvfs.f_frsize,
                 total: statvfs.f_blocks * statvfs.f_frsize
             });
