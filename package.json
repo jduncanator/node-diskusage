@@ -1,6 +1,6 @@
 {
   "name": "diskusage",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Get total diskspace and free diskspace using bindings around platform specific calls.",
   "main": "index.js",
   "dependencies": {
@@ -29,7 +29,7 @@
     "space"
   ],
   "author": "jduncanator",
-  "license": "GPLv3",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jduncanator/node-diskusage/issues"
   },
