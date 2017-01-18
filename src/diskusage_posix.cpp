@@ -2,13 +2,14 @@
 
 #include <stdexcept>
 #include <sys/statvfs.h>
+#include <errno.h>
 
 DiskUsage GetDiskUsage(const char* path)
 {
     struct statvfs info = {};
 
     if (statvfs(path, &info)) {
-        throw std::runtime_error("statvfs failed");
+        throw SystemError(errno, "statvfs", "statvfs failed", path);
     }
 
     DiskUsage result;

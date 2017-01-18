@@ -13,6 +13,11 @@ static v8::Local<v8::Object> ConvertDiskUsage(const DiskUsage& usage)
     return obj;
 }
 
+static v8::Local<v8::Value> ConvertSystemError(const SystemError& error)
+{
+    return Nan::ErrnoException(error.errorno(), error.syscall(), error.message(), error.path());
+}
+
 static NAN_METHOD(GetDiskUsage)
 {
     Nan::HandleScope scope;
@@ -20,6 +25,9 @@ static NAN_METHOD(GetDiskUsage)
     try {
         DiskUsage result = GetDiskUsage(*v8::String::Utf8Value(info[0]));
         info.GetReturnValue().Set(ConvertDiskUsage(result));
+    }
+    catch (const SystemError &error) {
+        Nan::ThrowError(ConvertSystemError(error));
     }
     catch (const std::exception &ex) {
         Nan::ThrowError(ex.what());

@@ -25,7 +25,7 @@ DiskUsage GetDiskUsage(const char* path)
     ULARGE_INTEGER free = {};
 
     if (!GetDiskFreeSpaceExW(Utf8ToUtf16(path).c_str(), &available, &total, &free)) {
-        throw std::runtime_error("GetDiskFreeSpaceEx failed");
+        throw SystemError(GetLastError(), "GetDiskFreeSpaceEx", "GetDiskFreeSpaceEx failed", path);
     }
 
     DiskUsage result;
