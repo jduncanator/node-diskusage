@@ -15,11 +15,13 @@ $ npm install diskusage
 Usage
 --------
 
-The module exposes a single function, `check`. It takes a path/mount point as the first argument and a callback as the second. The callback takes two arguments `err` and `info`. `err` will be non-zero if somethine went wrong. `info` contains three members: `available`, `free` and `total` in bytes.
+The module exposes two functions. `check` takes a path/mount point as the first argument and a callback as the second. The callback takes two arguments `err` and `info`. `err` will be an `Error` if something went wrong. `info` contains three members: `available`, `free` and `total` in bytes.
 
 - `available`: Disk space available to the current user (i.e. Linux reserves 5% for root)
 - `free`: Disk space physically free
 - `total`: Total disk space (free + used)
+
+`checkSync` only takes the path argument. It returns the same `info` on success, throws an `Error` on failure.
 
 ### Linux Note
 `statvfs` under Linux also counts for mount points mounted under the root mount. For example using the mount point `/` as the first parameter would also account for `/dev`, `/run`, etc. in the free and total spaces.
@@ -27,26 +29,44 @@ The module exposes a single function, `check`. It takes a path/mount point as th
 Examples
 --------
 
-### Windows
 ``` js
-var disk = require('diskusage');
+const disk = require('diskusage');
 
-// get disk usage. Takes path as first parameter
-disk.check('c:', function(err, info) {
+let path = os.platform() === 'win32' ? 'c:' : '/';
+
+disk.check(path, function(err, info) {
+	if (err) {
+		console.log(err);
+	} else {
+		console.log(info.available);
+		console.log(info.free);
+		console.log(info.total);
+	}
+});
+
+try {
+	let info = disk.checkSync(path);
 	console.log(info.available);
 	console.log(info.free);
 	console.log(info.total);
-});
+}
+catch (err) {
+	console.log(err);
+}
 ```
 
-### Linux
-``` js
-var disk = require('diskusage');
+TypeScript
+----------
 
-// get disk usage. Takes mount point as first parameter
-disk.check('/', function(err, info) {
-	console.log(info.available);
-	console.log(info.free);
-	console.log(info.total);
-});
+The module has an embedded .d.ts file. You can use `import * as diskusage from 'diskusage'`.
+
+```
+type DiskUsage = {
+    available: number;
+    free: number;
+    total: number;
+}
+
+export function check(path: string, callback: (error: Error, result: DiskUsage) => void): void;
+export function checkSync(path: string): DiskUsage;
 ```
