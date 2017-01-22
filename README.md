@@ -1,7 +1,7 @@
 node-diskusage
 ==============
 
-This module implements platform specific bindings to obtain disk usage information on Windows and *nix platforms. Windows support is backed by [GetDiskFreeSpaceEx](http://msdn.microsoft.com/en-us/library/windows/desktop/aa364937/) and *nix is implemented with [statvfs](http://www.freebsd.org/cgi/man.cgi?query=statvfs).
+This module implements platform specific bindings to obtain disk usage information on Windows and *nix platforms. Windows support is backed by [GetDiskFreeSpaceEx](http://msdn.microsoft.com/en-us/library/windows/desktop/aa364937/) and Unix is implemented with [statvfs](http://www.freebsd.org/cgi/man.cgi?query=statvfs).
 
 Installation
 ------------
@@ -22,9 +22,6 @@ The module exposes two functions. `check` takes a path/mount point as the first 
 - `total`: Total disk space (free + used)
 
 `checkSync` only takes the path argument. It returns the same `info` on success, throws an `Error` on failure.
-
-### Linux Note
-`statvfs` under Linux also counts for mount points mounted under the root mount. For example using the mount point `/` as the first parameter would also account for `/dev`, `/run`, etc. in the free and total spaces.
 
 Examples
 --------
