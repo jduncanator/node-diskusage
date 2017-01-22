@@ -7,6 +7,9 @@
         'src/main.cpp',
         'src/diskusage.h',
       ],
+      'cflags' : [
+        '-std=c++11'
+      ],
       'conditions': [
         ['OS=="win"', {
           'sources': [
