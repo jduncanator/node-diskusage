@@ -1,17 +1,12 @@
 {
   "name": "diskusage",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Get total diskspace and free diskspace using bindings around platform specific calls.",
   "main": "index.js",
+  "typings": "index.d.ts",
+  "gypfile": true,
   "dependencies": {
-    "ffi": "^2.0.0",
-    "ref": "^1.1.1",
-    "ref-array": "~1.1.1",
-    "ref-struct": "~1.0.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "mocha --reporter=spec"
+    "nan": "^2.5.0"
   },
   "repository": {
     "type": "git",
