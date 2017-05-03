@@ -9,7 +9,9 @@ DiskUsage GetDiskUsage(const char* path)
     struct statvfs info = {};
 
     if (statvfs(path, &info)) {
-        throw SystemError(errno, "statvfs", "statvfs failed", path);
+        char message[3000];
+        explain_message_statvfs(message, sizeof(message), path, &info);
+        throw SystemError(errno, "statvfs", message, path);
     }
 
     DiskUsage result;
