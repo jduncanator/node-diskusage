@@ -3,15 +3,15 @@
 #include <stdexcept>
 #include <sys/statvfs.h>
 #include <errno.h>
+#include <string.h>
 
 DiskUsage GetDiskUsage(const char* path)
 {
     struct statvfs info = {};
 
     if (statvfs(path, &info)) {
-        char message[3000];
-        explain_message_statvfs(message, sizeof(message), path, &info);
-        throw SystemError(errno, "statvfs", message, path);
+        int errnum = errno;
+        throw SystemError(errnum, "statvfs", strerror(errnum), path);
     }
 
     DiskUsage result;
