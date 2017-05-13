@@ -28,6 +28,7 @@ Examples
 
 ``` js
 const disk = require('diskusage');
+const os = require('os');
 
 let path = os.platform() === 'win32' ? 'c:' : '/';
 
