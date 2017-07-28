@@ -7,8 +7,8 @@
         'src/main.cpp',
         'src/diskusage.h',
       ],
-      'cflags' : [
-        '-std=c++11'
+      'cflags_cc' : [
+        '-D_GLIBCXX_USE_CXX11_ABI=0'
       ],
       'conditions': [
         ['OS=="win"', {
