@@ -8,6 +8,7 @@
         'src/diskusage.h',
       ],
       'cflags_cc' : [
+        '-std=c++11',
         '-D_GLIBCXX_USE_CXX11_ABI=0'
       ],
       'conditions': [
