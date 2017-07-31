@@ -7,7 +7,7 @@
         'src/main.cpp',
         'src/diskusage.h',
       ],
-      'cflags_cc' : [
+      'cflags' : [
         '-std=c++11',
         '-D_GLIBCXX_USE_CXX11_ABI=0'
       ],
