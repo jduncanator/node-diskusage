@@ -1,12 +1,15 @@
-var native = require('./build/Release/diskusage.node');
+const native = require('./build/Release/diskusage.node');
 
 exports.check = function(path, callback) {
+    let result = null;
+    let error = null;
     try {
-        callback(undefined, native.getDiskUsage(path));
+        result = native.getDiskUsage(path);
     }
-    catch (error) {
-        callback(error, undefined);
+    catch (error_) {
+        error = error_
     }
+    callback(error, result);
 };
 
 exports.checkSync = native.getDiskUsage;
