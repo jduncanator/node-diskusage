@@ -1,8 +1,8 @@
-const native = require('./build/Release/diskusage.node');
+var native = require('./build/Release/diskusage.node');
 
 exports.check = function(path, callback) {
-    let result = null;
-    let error = null;
+    var result = undefined;
+    var error = undefined;
     try {
         result = native.getDiskUsage(path);
     }
