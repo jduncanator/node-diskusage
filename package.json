@@ -1,6 +1,6 @@
 {
   "name": "diskusage",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Get total diskspace and free diskspace using bindings around platform specific calls.",
   "main": "index.js",
   "typings": "index.d.ts",
