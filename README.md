@@ -58,7 +58,7 @@ TypeScript
 
 The module has an embedded .d.ts file. You can use `import * as diskusage from 'diskusage'`.
 
-```
+```ts
 type DiskUsage = {
     available: number;
     free: number;
