@@ -6,7 +6,7 @@
   "typings": "index.d.ts",
   "gypfile": true,
   "dependencies": {
-    "nan": "^2.5.0"
+    "nan": "^2.11.1"
   },
   "repository": {
     "type": "git",
