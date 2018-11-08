@@ -1,11 +1,12 @@
 var native = require("./build/Release/diskusage.node");
+var promise = typeof Promise !== "undefined" ? Promise : require("es6-promise").Promise
 
 exports.check = function(path, callback) {
   if (callback) {
     return check(path, callback);
   }
 
-  return new Promise(function (resolve, reject) {
+  return new promise(function (resolve, reject) {
       check(path, function (err, result) {
           err ? reject(err) : resolve(result)
       })
