@@ -3,11 +3,11 @@ const os = require("os");
 
 const targetPath = os.platform() === "win32" ? "c:" : "/";
 
-function printResults(type, { available, free, local }) {
+function printResults(type, { available, free, total }) {
   console.log(`${type}
     Available: ${available}
     Free: ${free}
-    Local: ${local}
+    Tocal: ${total}
   `);
 }
 
