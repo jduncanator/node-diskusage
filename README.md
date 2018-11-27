@@ -17,6 +17,8 @@ Usage
 
 The module exposes two functions. `check` takes a path/mount point as the first argument and a callback as the second. The callback takes two arguments `err` and `info`. `err` will be an `Error` if something went wrong. `info` contains three members: `available`, `free` and `total` in bytes.
 
+If no callback is supplied `check` will instead return a `Promise<DiskUsage>` that you can await.
+
 - `available`: Disk space available to the current user (i.e. Linux reserves 5% for root)
 - `free`: Disk space physically free
 - `total`: Total disk space (free + used)
@@ -32,24 +34,43 @@ const os = require('os');
 
 let path = os.platform() === 'win32' ? 'c:' : '/';
 
+// Callbacks
 disk.check(path, function(err, info) {
-	if (err) {
-		console.log(err);
-	} else {
-		console.log(info.available);
-		console.log(info.free);
-		console.log(info.total);
-	}
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(info.available);
+    console.log(info.free);
+    console.log(info.total);
+  }
 });
 
+// Promise
+async function getFreeSpace(path) {
+  try {
+    const { free } = await disk.check(path);
+    console.log(`Free space: ${free}`);
+    return free
+  } catch (err) {
+    console.error(err)
+    return 0
+  }
+}
+
+// Or without using async/await
+disk.check(path)
+  .then(info => console.log(`free: ${info.free}`))
+  .catch(err => console.error(err))
+
+// Synchronous
 try {
-	let info = disk.checkSync(path);
-	console.log(info.available);
-	console.log(info.free);
-	console.log(info.total);
+  let info = disk.checkSync(path);
+  console.log(info.available);
+  console.log(info.free);
+  console.log(info.total);
 }
 catch (err) {
-	console.log(err);
+  console.log(err);
 }
 ```
 
@@ -66,5 +87,17 @@ type DiskUsage = {
 }
 
 export function check(path: string, callback: (error: Error, result: DiskUsage) => void): void;
+export function check(path: string): Promise<DiskUsage>
 export function checkSync(path: string): DiskUsage;
+```
+
+Demo
+----
+
+To see a demo of this library see the `demo/` folder.
+
+You can run it with node: (node 8+ required)
+
+```bash
+node ./demo/
 ```
