@@ -1,6 +1,12 @@
 node-diskusage
 ==============
 
+<p align="center">
+  <img src="https://img.shields.io/david/jduncanator/node-diskusage.svg" alt="npm Dependencies" title="npm Dependencies" />
+  <img src="https://img.shields.io/npm/v/diskusage.svg" alt="npm Version" title="npm Version" />
+  <img src="https://img.shields.io/npm/dw/diskusage.svg" alt="npm Downloads" title="npm Downloads" />
+</p>
+
 This module implements platform specific bindings to obtain disk usage information on Windows and POSIX platforms. Windows support is backed by [GetDiskFreeSpaceEx](http://msdn.microsoft.com/en-us/library/windows/desktop/aa364937/) and POSIX is implemented with [statvfs](http://www.freebsd.org/cgi/man.cgi?query=statvfs).
 
 Installation
