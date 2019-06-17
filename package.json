@@ -7,7 +7,7 @@
   "gypfile": true,
   "dependencies": {
     "es6-promise": "^4.2.5",
-    "nan": "^2.11.1"
+    "nan": "^2.13.2"
   },
   "repository": {
     "type": "git",
