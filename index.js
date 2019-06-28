@@ -1,5 +1,5 @@
 var native = require("./build/Release/diskusage.node");
-var promise = typeof Promise !== "undefined" ? Promise : require("es6-promise").Promise
+var promise = typeof Promise !== "undefined" ? Promise : require("es6-promise").Promise;
 
 exports.check = function(path, callback) {
   if (callback) {
@@ -7,10 +7,10 @@ exports.check = function(path, callback) {
   }
 
   return new promise(function (resolve, reject) {
-      check(path, function (err, result) {
-          err ? reject(err) : resolve(result)
-      })
-  })
+    check(path, function (err, result) {
+      err ? reject(err) : resolve(result);
+    });
+  });
 };
 
 exports.checkSync = native.getDiskUsage;
