@@ -6,9 +6,9 @@
 static v8::Local<v8::Object> ConvertDiskUsage(const DiskUsage& usage)
 {
     v8::Local<v8::Object> obj = Nan::New<v8::Object>();
-    obj->Set(Nan::New<v8::String>("available").ToLocalChecked(), Nan::New<v8::Number>(static_cast<double>(usage.available)));
-    obj->Set(Nan::New<v8::String>("free").ToLocalChecked(), Nan::New<v8::Number>(static_cast<double>(usage.free)));
-    obj->Set(Nan::New<v8::String>("total").ToLocalChecked(), Nan::New<v8::Number>(static_cast<double>(usage.total)));
+    Nan::Set(obj, Nan::New<v8::String>("available").ToLocalChecked(), Nan::New<v8::Number>(static_cast<double>(usage.available)));
+    Nan::Set(obj, Nan::New<v8::String>("free").ToLocalChecked(), Nan::New<v8::Number>(static_cast<double>(usage.free)));
+    Nan::Set(obj, Nan::New<v8::String>("total").ToLocalChecked(), Nan::New<v8::Number>(static_cast<double>(usage.total)));
 
     return obj;
 }
