@@ -54,7 +54,7 @@ disk.check(path, function(err, info) {
 // Promise
 async function getFreeSpace(path) {
   try {
-    const { free } = await disk.check(path);
+    const  {...free}  = await disk.check(path);
     console.log(`Free space: ${free}`);
     return free
   } catch (err) {
