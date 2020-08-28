@@ -7,7 +7,7 @@ function printResults(type, { available, free, total }) {
   console.log(`${type}
     Available: ${available}
     Free: ${free}
-    Tocal: ${total}
+    Total: ${total}
   `);
 }
 
