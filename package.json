@@ -6,11 +6,11 @@
   "typings": "index.d.ts",
   "gypfile": true,
   "dependencies": {
-    "es6-promise": "^4.2.5",
-    "nan": "^2.14.0"
+    "es6-promise": "^4.2.8",
+    "nan": "^2.18.0"
   },
   "devDependencies": {
-    "eslint": "^6.0.1"
+    "eslint": "^8.49.0"
   },
   "repository": {
     "type": "git",

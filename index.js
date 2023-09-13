@@ -1,29 +1,56 @@
-var native = require("./build/Release/diskusage.node");
-var promise = typeof Promise !== "undefined" ? Promise : require("es6-promise").Promise;
+var fs = require('fs');
 
-exports.check = function(path, callback) {
-  if (callback) {
-    return check(path, callback);
-  }
+// Detect presence of fs.statfs
+if(typeof fs.statfs === 'function') {
+  exports.check = function(path, callback) {
+    if (callback) {
+      return check(path, callback);
+    }
 
-  return new promise(function (resolve, reject) {
-    check(path, function (err, result) {
-      err ? reject(err) : resolve(result);
+    return new Promise(function (resolve, reject) {
+      check(path, function (err, result) {
+        err ? reject(err) : resolve(result);
+      });
     });
-  });
-};
-
-exports.checkSync = native.getDiskUsage;
-
-function check(path, callback) {
-  var result = undefined;
-  var error = undefined;
-
-  try {
-    result = native.getDiskUsage(path);
-  } catch (error_) {
-    error = error_;
   }
 
-  callback(error, result);
+  function check(path, callback) {
+    fs.statfs(path, function (err, result_) {
+      var result = undefined;
+
+      if (!err) {
+        result = {
+          available: result_.bavail * result_.bsize,
+          free: result_.bfree * result_.bsize,
+          total: result_.blocks * result_.bsize
+        };
+      }
+
+      callback(err, result);
+    });
+  }
+
+  exports.checkSync = function(path, callback) {
+    var result = undefined;
+    var error = undefined;
+  
+    try {
+      var result_ = fs.statfsSync(path);
+
+      result = {
+        available: result_.bavail * result_.bsize,
+        free: result_.bfree * result_.bsize,
+        total: result_.blocks * result_.bsize
+      }
+    } catch(error_) {
+      error = error_;
+    }
+
+    callback(error, result);
+  }
+} else {
+  var diskusage = require('./fallback.js');
+
+  exports.check = diskusage.check;
+  exports.checkSync = diskusage.checkSync;
 }
