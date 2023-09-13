@@ -30,23 +30,14 @@ if(typeof fs.statfs === 'function') {
     });
   }
 
-  exports.checkSync = function(path, callback) {
-    var result = undefined;
-    var error = undefined;
-  
-    try {
-      var result_ = fs.statfsSync(path);
+  exports.checkSync = function(path) {
+    var result = fs.statfsSync(path);
 
-      result = {
-        available: result_.bavail * result_.bsize,
-        free: result_.bfree * result_.bsize,
-        total: result_.blocks * result_.bsize
-      }
-    } catch(error_) {
-      error = error_;
+    return {
+      available: result.bavail * result.bsize,
+      free: result.bfree * result.bsize,
+      total: result.blocks * result.bsize
     }
-
-    callback(error, result);
   }
 } else {
   var diskusage = require('./fallback.js');
